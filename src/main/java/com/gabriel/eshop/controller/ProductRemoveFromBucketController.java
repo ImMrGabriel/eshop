@@ -7,6 +7,8 @@ import com.gabriel.eshop.dao.exception.DaoSystemException;
 import com.gabriel.eshop.dao.exception.NoSuchEntityException;
 import com.gabriel.eshop.dao.impl.ProductDaoMock;
 import com.gabriel.eshop.entity.Product;
+import com.gabriel.eshop.inject.DependencyInjectionServlet;
+import com.gabriel.eshop.inject.Inject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +22,14 @@ import java.util.Map;
 import static com.gabriel.eshop.controller.SessionAttributes.PRODUCTS_IN_BUCKET;
 import static java.util.Collections.unmodifiableMap;
 
-public class ProductRemoveFromBucketController extends HttpServlet {
+public class ProductRemoveFromBucketController extends DependencyInjectionServlet {
     public static final String PARAM_ID = "id";
     public static final String PARAM_REDIRECT_TO_ID = "redirectToId";
     public static final String PAGE_ERROR = "productAll.do";
 
-    private ProductDao productDao = new ProductDaoMock();
+    @Inject("productDao")
+    private ProductDao productDao;
+//    private ProductDao productDao = new ProductDaoMock();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

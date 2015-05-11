@@ -22,9 +22,20 @@ public class ProductDaoMock implements ProductDao {
     @Override
     public Product selectById(int id) throws DaoSystemException, NoSuchEntityException {
         if(!memory.containsKey(id)) {
-            throw new NoSuchEntityException("No Product for id == '" + id + "'.");
+            throw new NoSuchEntityException("No Product for id == '" + id + "', only for " + memory.keySet());
         }
         return memory.get(id);
+
+//        //todo: temporary, aop demo (exception interception)
+////        if(id == 123) {
+////            throw new Error("Hello form magic bad id");
+////        }
+//
+//        Product product = memory.get(id);
+//        if(product == null) {
+//            throw new NoSuchEntityException("No Product for id == '" + id + "'.");
+//        }
+//        return product;
     }
 
     @Override
