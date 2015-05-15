@@ -54,28 +54,28 @@
 
 
         <!-- Spring (Business Logic Container)-->
-        <!-- Core utilities used by other modules. Define this if ???-->
+        <!-- Core utilities used by other modules -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Bean Factory and JavaBeans utilities (depends on spring ???)-->
+        <!-- Bean Factory and JavaBeans utilities -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>${spring.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Application Context (depends on spring-core, spring-e ???)-->
+        <!-- Application Context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Expression language-->
+        <!-- Expression language -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
@@ -83,7 +83,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- Spring AOP-->
+        <!-- Spring AOP -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -157,10 +157,6 @@
             <artifactId>bonecp</artifactId>
             <version>0.8.0.RELEASE</version>
         </dependency>
-
-
-
-
 
     </dependencies>
 
