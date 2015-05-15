@@ -1,13 +1,16 @@
 package com.gabriel.eshop.controller;
 
 import com.gabriel.eshop.dao.ProductDao;
+import com.gabriel.eshop.dao.exception.DaoException;
 import com.gabriel.eshop.dao.exception.DaoSystemException;
 import com.gabriel.eshop.dao.exception.NoSuchEntityException;
 import com.gabriel.eshop.dao.impl.jdbc.tx.TransactionManager;
+import com.gabriel.eshop.dao.impl.jdbc.tx.UnitOfWork;
 import com.gabriel.eshop.entity.Product;
 import com.gabriel.eshop.inject.DependencyInjectionServlet;
 import com.gabriel.eshop.inject.Inject;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,20 +35,19 @@ public class ProductControllerExternalTx extends DependencyInjectionServlet {
         if(idStr != null) {
             try{
                 final Integer id = Integer.valueOf(idStr);
-                Callable<Product> unitOfWork = new Callable<Product>() {
+                Product model = txManager.doInTransaction(new UnitOfWork<Product, DaoException>() {
                     @Override
-                    public Product call() throws DaoSystemException, NoSuchEntityException {
+                    public Product doInTx() throws DaoException {
                         return productDao.selectById(id);
                     }
-                };
-                Product model = txManager.doInTransaction(unitOfWork);
-//                Product model = productDao.selectById(id);
+                });
                 request.setAttribute(ATTRIBUTE_MODEL_TO_VIEW, model);
                 //OK
-                request.getRequestDispatcher(PAGE_OK).forward(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(PAGE_OK);
+                dispatcher.forward(request, response);
                 return;
-            } catch (Exception /* NumberFormatException | NoSuchEntityException | DaoSystemException*/ e) {
-                /*NOP*/
+            } catch (DaoException | NumberFormatException e) {
+                e.printStackTrace();
             }
         }
         //FAIL

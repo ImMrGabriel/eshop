@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-       <bean id="txManager" class="com.gabriel.eshop.dao.impl.jdbc.tx.TransactionManagerImpl"/>
+        <jdbc:embedded-database id="dbDataSource" type="HSQL">
+              <jdbc:script location="classpath:schema.sql"/>
+              <jdbc:script location="classpath:test-data.sql"/>
+        </jdbc:embedded-database>
 
-       <!--<bean id="productDao" class="com.gabriel.eshop.dao.impl.ProductDaoMock" scope="singleton"/>-->
+       <bean id="txManager" class="com.gabriel.eshop.dao.impl.jdbc.tx.TransactionManagerImpl">
+       <!--<bean id="txManager" class="com.gabriel.eshop.dao.impl.jdbc.tx.TransactionManagerImpl" scope="singleton">-->
+              <property name="dataSource" ref="dbDataSource"/>
+       </bean>
+
        <bean id="productDao" class="com.gabriel.eshop.dao.impl.jdbc.ProductDaoJdbcExternalTxImpl">
+       <!--<bean id="productDao" class="com.gabriel.eshop.dao.impl.jdbc.ProductDaoJdbcExternalTxImpl" scope="singleton">-->
               <property name="dataSource" ref="txManager"/>
        </bean>
 </beans>

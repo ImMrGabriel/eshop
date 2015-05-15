@@ -29,31 +29,24 @@ public class ProductDaoJdbcExternalTxImpl implements ProductDao {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try{
-            if(dataSource == null) {
-                throw new DaoSystemException("not Data Source");
-            }
             Connection conn = dataSource.getConnection();
-            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(SELECT_BY_ID_SQL);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if(!rs.next()) {
-                throw new NoSuchEntityException("No Product for id");
+                throw new NoSuchEntityException("No Product for id = " + id);
             }
-            Product result = new Product(rs.getInt("product_id"), rs.getString("product_name"));
-            conn.commit();
-            return result;
+            return new Product(rs.getInt("product_id"), rs.getString("product_name"));
         } catch (SQLException e) {
             throw new DaoSystemException(e.getMessage());
+        } finally {
+            JdbcUtils.closeQuietly(rs, stmt);
         }
     }
 
     @Override
     public List<Product> selectAll() throws DaoSystemException {
         List<Product> result = new LinkedList<>();
-        if(dataSource == null) {
-            throw new DaoSystemException("not Data Source");
-        }
         try{
             Connection conn = dataSource.getConnection();
             conn.setAutoCommit(false);

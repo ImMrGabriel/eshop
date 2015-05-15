@@ -1,9 +1,6 @@
 package com.gabriel.eshop.dao.impl.jdbc;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class JdbcUtils {
     private JdbcUtils() {
@@ -47,5 +44,10 @@ public class JdbcUtils {
                 // NOP
             }
         }
+    }
+
+    public static void closeQuietly(ResultSet rs, Statement stmt) {
+        closeQuietly(rs);
+        closeQuietly(stmt);
     }
 }

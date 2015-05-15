@@ -1,9 +1,11 @@
 package com.gabriel.eshop.controller;
 
 import com.gabriel.eshop.dao.ProductDao;
+import com.gabriel.eshop.dao.exception.DaoException;
 import com.gabriel.eshop.dao.exception.DaoSystemException;
 import com.gabriel.eshop.dao.exception.NoSuchEntityException;
 import com.gabriel.eshop.dao.impl.jdbc.tx.TransactionManager;
+import com.gabriel.eshop.dao.impl.jdbc.tx.UnitOfWork;
 import com.gabriel.eshop.entity.Product;
 import com.gabriel.eshop.inject.DependencyInjectionServlet;
 import com.gabriel.eshop.inject.Inject;
@@ -32,9 +34,9 @@ public class ProductAllControllerExternalTx extends DependencyInjectionServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Callable<List<Product>> unitOfWork = new Callable<List<Product>>() {
+            UnitOfWork<List<Product>, DaoSystemException> unitOfWork = new UnitOfWork<List<Product>, DaoSystemException>() {
                 @Override
-                public List<Product> call() throws DaoSystemException, NoSuchEntityException {
+                public List<Product> doInTx() throws DaoSystemException {
                     return productDao.selectAll();
                 }
             };
@@ -44,7 +46,7 @@ public class ProductAllControllerExternalTx extends DependencyInjectionServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher(PAGE_OK);
             dispatcher.forward(request, response);
             return;
-        } catch (/*DaoSystemException*/Exception ignore) {
+        } catch (DaoSystemException ignore) {
             /*NOP*/
         }
         //FAIL
