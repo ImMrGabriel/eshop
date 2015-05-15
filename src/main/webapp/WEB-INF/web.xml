@@ -8,14 +8,17 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <!--<param-value>/appContext-dao.xml</param-value>-->
-        <param-value>/appContext-dao-aop-schema.xml</param-value>
+        <!--<param-value>/appContext-dao-aop-schema.xml</param-value>-->
+        <param-value>/appContext-dao-external-tx.xml</param-value>
     </context-param>
+
 
     <!--CONTROLLERS-->
     <!--product-->
     <servlet>
         <servlet-name>productController</servlet-name>
-        <servlet-class>com.gabriel.eshop.controller.ProductController</servlet-class>
+        <!--<servlet-class>com.gabriel.eshop.controller.ProductController</servlet-class>-->
+        <servlet-class>com.gabriel.eshop.controller.ProductControllerExternalTx</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>productController</servlet-name>
@@ -23,7 +26,8 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>productAll</servlet-name>
-        <servlet-class>com.gabriel.eshop.controller.ProductAllController</servlet-class>
+        <!--<servlet-class>com.gabriel.eshop.controller.ProductAllController</servlet-class>-->
+        <servlet-class>com.gabriel.eshop.controller.ProductAllControllerExternalTx</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>productAll</servlet-name>
