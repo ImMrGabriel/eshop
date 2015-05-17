@@ -56,10 +56,10 @@ public class ProductDaoJdbcExternalTxImpl implements ProductDao {
                     result.add(new Product(rs.getInt("product_id"), rs.getString("product_name")));
                 }
                 conn.commit();
+                return result;
             }
         } catch (SQLException e) {
             throw new DaoSystemException(e.getMessage());
         }
-        return result;
     }
 }

@@ -1,36 +1,17 @@
 package com.gabriel.eshop.dao.impl.jdbc;
 
-import java.sql.*;
+import java.sql.Connection;
 
 public class JdbcUtils {
     private JdbcUtils() {
     }
 
-    public static void closeQuietly(ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                // NOP
-            }
-        }
-    }
 
-    public static void closeQuietly(Statement ps) {
-        if (ps != null) {
+    public static void closeQuietly(AutoCloseable resource) {
+        if (resource != null) {
             try {
-                ps.close();
-            } catch (SQLException e) {
-                // NOP
-            }
-        }
-    }
-
-    public static void closeQuietly(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
+                resource.close();
+            } catch (Exception e) {
                 // NOP
             }
         }
@@ -40,14 +21,15 @@ public class JdbcUtils {
         if (conn != null) {
             try {
                 conn.rollback();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 // NOP
             }
         }
     }
 
-    public static void closeQuietly(ResultSet rs, Statement stmt) {
-        closeQuietly(rs);
-        closeQuietly(stmt);
+    public static void closeQuietly(AutoCloseable... resources) {
+        for(AutoCloseable resource : resources) {
+            closeQuietly(resource);
+        }
     }
 }

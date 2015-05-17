@@ -45,9 +45,9 @@ public class ProductDaoJdbcImpl implements ProductDao{
             return result;
         } catch (SQLException e) {
             JdbcUtils.rollbackQuietly(conn);
-            JdbcUtils.closeQuietly(rs, stmt);
-            JdbcUtils.closeQuietly(conn);
             throw new DaoSystemException(e.getMessage());
+        } finally {
+            JdbcUtils.closeQuietly(rs, stmt, conn);
         }
     }
 
@@ -69,12 +69,13 @@ public class ProductDaoJdbcImpl implements ProductDao{
                     result.add(new Product(rs.getInt("product_id"), rs.getString("product_name")));
                 }
                 conn.commit();
+                return result;
             }
         } catch (SQLException e) {
             JdbcUtils.rollbackQuietly(conn);
-            JdbcUtils.closeQuietly(conn);
             throw new DaoSystemException(e.getMessage());
+        } finally {
+            JdbcUtils.closeQuietly(conn);
         }
-        return result;
     }
 }
