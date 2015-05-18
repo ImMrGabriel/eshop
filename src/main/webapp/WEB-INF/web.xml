@@ -12,7 +12,8 @@
         <param-name>contextConfigLocation</param-name>
         <!--<param-value>/appContext-dao.xml</param-value>-->
         <!--<param-value>/appContext-dao-aop-schema.xml</param-value>-->
-        <param-value>/appContext-dao-external-tx.xml</param-value>
+        <!--<param-value>/appContext-dao-external-tx.xml</param-value>-->
+        <param-value>/appContext-dao-external-tx-pool.xml</param-value>
         <!--<param-value>/appContext-dao-spring.xml</param-value>-->
     </context-param>
 
