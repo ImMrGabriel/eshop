@@ -1,18 +1,24 @@
 package com.gabriel.eshop.inject;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.lang.reflect.Field;
 import java.util.List;
 
+/**
+ * Общий предок для всех сервлетов, которые хотят использовать "магию" DependencyInjection
+ * todo: как используем Spring
+ * todo: как используем Reflection API
+ * todo: как используем @Inject
+ * todo: DI и IoC
+ */
 public class DependencyInjectionServlet extends HttpServlet {
     private final static String APP_CTX_PATH = "contextConfigLocation";
 
     @Override
-    public void init() throws ServletException {
+    public final void init() throws ServletException {
         String appCtxPath = this.getServletContext().getInitParameter(APP_CTX_PATH);
         System.out.println("load " + APP_CTX_PATH + " -> " + appCtxPath);
 
@@ -23,7 +29,8 @@ public class DependencyInjectionServlet extends HttpServlet {
 
         try{
             //Load AppContext
-            ApplicationContext appCtx = new ClassPathXmlApplicationContext(appCtxPath);
+//            ApplicationContext appCtx = new ClassPathXmlApplicationContext(appCtxPath);     // fail!!!
+            ApplicationContext appCtx = ApplicationContextHolder.getClassXmlApplicationContext(appCtxPath);
             // than inject from AppContext to all marked by @Inject fields
             List<Field> allFields = FieldReflector.collectUpTo(this.getClass(), DependencyInjectionServlet.class);
             List<Field> injectFields = FieldReflector.filterInject(allFields);

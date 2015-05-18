@@ -17,11 +17,15 @@
             <!--<property name="dataSource" ref="dbDataSource"/>-->
         <!--</bean>-->
 
-       <!--<bean id="txManager" class="com.gabriel.eshop.dao.impl.jdbc.tx.TransactionManagerImpl">-->
-              <!--<property name="dataSource" ref="poolDataSource"/>-->
-       <!--</bean>-->
+        <!--<bean id="poolDataSource" class="com.jolbox.bonecp.BoneCPDataSource" scope="singleton">-->
+            <!--<property name="datasourceBean" ref="dbDataSource"/>-->
+        <!--</bean>-->
 
-       <!--<bean id="productDao" class="com.gabriel.eshop.dao.impl.jdbc.ProductDaoJdbcExternalTxImpl">-->
-              <!--<property name="dataSource" ref="txManager"/>-->
-       <!--</bean>-->
+        <!--<bean id="txManager" class="com.gabriel.eshop.dao.impl.jdbc.tx.TransactionManagerImpl">-->
+            <!--<property name="dataSource" ref="poolDataSource"/>-->
+        <!--</bean>-->
+
+        <!--<bean id="productDao" class="com.gabriel.eshop.dao.impl.jdbc.ProductDaoJdbcExternalTxImpl">-->
+            <!--<property name="dataSource" ref="txManager"/>-->
+        <!--</bean>-->
 </beans>
