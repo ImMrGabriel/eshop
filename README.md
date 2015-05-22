@@ -13,10 +13,10 @@ Used technologies:
 *  Spring IoC container and beans;
 *  etc  
 
-
-1) User can see all product (click on product to select). 
-2) User can add product to bucket, and then user can see selected below.
-3) User can remove product from bucket (click on 'X' to the right of the name product).
+Interaction 
+* User can see all product (click on product to select). 
+* User can add product to bucket, and then user can see selected below.
+* User can remove product from bucket (click on 'X' to the right of the name product).
 
 localhost:8080/eshop/
 
