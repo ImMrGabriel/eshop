@@ -2,15 +2,15 @@
 e-shop - Training example
 
 Used technologies:
-Java;
+* Java;
 * Maven; 
 * Tomcat (application context '/eshop');
-  Servlets(Listeners, Filters, Controllers); 
-  AspecJ, AOP;
-  JDBC;
-  HSQL as an embedded database;
-  BoneCP as a JDBC connection pool; 
-  Spring IoC container and beans;
+*  Servlets(Listeners, Filters, Controllers); 
+*  AspecJ, AOP;
+*  JDBC;
+*  HSQL as an embedded database;
+*  BoneCP as a JDBC connection pool; 
+*  Spring IoC container and beans;
   
 
 User can see all product (click on product to select). 
