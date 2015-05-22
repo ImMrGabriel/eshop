@@ -11,11 +11,12 @@ Used technologies:
 *  HSQL as an embedded database;
 *  BoneCP as a JDBC connection pool; 
 *  Spring IoC container and beans;
-  
+*  etc  
 
-User can see all product (click on product to select). 
-User can add product to bucket, and then user can see selected below.
-User can remove product from bucket (click on 'X' to the right of the name product).
+
+1) User can see all product (click on product to select). 
+2) User can add product to bucket, and then user can see selected below.
+3) User can remove product from bucket (click on 'X' to the right of the name product).
 
 localhost:8080/eshop/
 
