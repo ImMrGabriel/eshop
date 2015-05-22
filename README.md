@@ -2,9 +2,9 @@
 e-shop - Training example
 
 Used technologies:
-  Java;
-  Maven; 
-  Tomcat (application context '/eshop');
+Java;
+* Maven; 
+* Tomcat (application context '/eshop');
   Servlets(Listeners, Filters, Controllers); 
   AspecJ, AOP;
   JDBC;
