@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
+/**
+ * Base class, that simplifies the classes implementing the interface DataSource.
+ * Methods do nothing, but they either return null or throw an exception.
+ */
 public class BaseDataSource implements DataSource {
     @Override
     public Connection getConnection() throws SQLException {

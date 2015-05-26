@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Demo Data Access Object of the Product entity.
+ * Data hardcoded in constructor and stored into ConcurrentHashMap
+ */
 public class ProductDaoMock implements ProductDao {
     private final Map<Integer, Product> memory = new ConcurrentHashMap<>();
 
@@ -19,25 +23,26 @@ public class ProductDaoMock implements ProductDao {
         this.memory.put(3, new Product(3, "Sugar"));
     }
 
+    /**
+     * Select product associated by the id
+     * @id - identification, it is currently key of ConcurrentHashMap
+     * @return the product (Never return NULL!)
+     * @throws DaoSystemException
+     * @throws NoSuchEntityException
+     */
     @Override
     public Product selectById(int id) throws DaoSystemException, NoSuchEntityException {
         if(!memory.containsKey(id)) {
             throw new NoSuchEntityException("No Product for id == '" + id + "', only for " + memory.keySet());
         }
         return memory.get(id);
-
-//        //todo: temporary, aop demo (exception interception)
-////        if(id == 123) {
-////            throw new Error("Hello form magic bad id");
-////        }
-//
-//        Product product = memory.get(id);
-//        if(product == null) {
-//            throw new NoSuchEntityException("No Product for id == '" + id + "'.");
-//        }
-//        return product;
     }
 
+    /**
+     * Select list of all products, which there are at the ConcurrentHashMap
+     * @return the products (Never return NULL!)
+     * @throws DaoSystemException
+     */
     @Override
     public List<Product> selectAll() throws DaoSystemException {
         return new ArrayList<>(memory.values());
