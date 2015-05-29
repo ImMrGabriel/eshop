@@ -98,7 +98,7 @@ public class ProductDaoJdbcImpl implements ProductDao{
                 return result;
             }
         } catch (SQLException e) {
-            // transaction is not successful, roll back and throw an exception
+            // transaction is not successful, rollback and throw an exception
             JdbcUtils.rollbackQuietly(conn);
             throw new DaoSystemException(e.getMessage());
         } finally {

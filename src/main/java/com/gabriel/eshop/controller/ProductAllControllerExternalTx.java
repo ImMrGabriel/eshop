@@ -18,19 +18,43 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+/**
+ * @WebSocket("/productAll.do")
+ * The servlet selects all products, using the external transaction.
+ * And transmits the selected products in the request attribute
+ * by ATTRIBUTE_MODEL_TO_VIEW.
+ * Inherits from DependencyInjectionServlet to obtain instances for
+ * marked fields from outside.
+ */
 public class ProductAllControllerExternalTx extends DependencyInjectionServlet {
     public static final String PARAM_ID = "id";
     public static final String ATTRIBUTE_MODEL_TO_VIEW = "productList";
     public static final String PAGE_OK = "productAll.jsp";
     public static final String PAGE_ERROR = "error.jsp";
 
+    /**
+     * The field gets an instance from an external appContext file using @Inject by
+     * id="txManager".
+     */
     @Inject("txManager")
     private TransactionManager txManager;
 
+    /**
+     * The field gets an instance from an external appContext file using @Inject by
+     * id="productDao".
+     */
     @Inject("productDao")
     private ProductDao productDao;
 
-
+    /**
+     * Selects all products, indicating the desired method as a piece of work in
+     * an external transaction. And transmits the selected products in the request
+     * attribute by ATTRIBUTE_MODEL_TO_VIEW.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
